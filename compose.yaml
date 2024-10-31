@@ -10,10 +10,10 @@ services:
     secrets:
       - db-password
     environment:
-      - PASSWORD_FILE_PATH=/run/secrets/db-password
-      - DB_HOST=db
-      - DB_NAME=recettes
-      - DB_USER=root
+      - DB_PASSWORD=fuggvkf5whtb0do5
+      - DB_HOST=q0h7yf5pynynaq54.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
+      - DB_NAME=py6ajs6fxh9t7ltc
+      - DB_USER=byhyx2wu2tx0trdv
     develop:
       watch:
         - action: sync
@@ -22,7 +22,7 @@ services:
   db:
     image: mariadb
     restart: always
-    user: root
+    user: byhyx2wu2tx0trdv
     secrets:
       - db-password
     volumes:
