@@ -1,51 +1,11 @@
+version: '3.8'
+
 services:
-  server:
-    build:
-      context: .
-    ports:
-      - 9000:80
-    depends_on:
-      db:
-        condition: service_healthy
-    secrets:
-      - db-password
-    environment:
-      - DB_PASSWORD=fuggvkf5whtb0do5
-      - DB_HOST=q0h7yf5pynynaq54.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
-      - DB_NAME=py6ajs6fxh9t7ltc
-      - DB_USER=byhyx2wu2tx0trdv
-    develop:
-      watch:
-        - action: sync
-          path: ./src
-          target: /var/www/html
-  db:
-    image: mariadb
-    restart: always
-    user: byhyx2wu2tx0trdv
-    secrets:
-      - db-password
+  web:
+    image: php:8.2-apache
     volumes:
-      - db-data:/var/lib/mysql
+      - .:/var/www/html
     environment:
-      - MARIADB_ROOT_PASSWORD_FILE=/run/secrets/db-password
-      - MARIADB_DATABASE=recettes
-    expose:
-      - 3307
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "/usr/local/bin/healthcheck.sh",
-          "--su-mysql",
-          "--connect",
-          "--innodb_initialized",
-        ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-volumes:
-  db-data:
-secrets:
-  db-password:
-    file: db/password.txt
+      DATABASE_URL: mysql://byhyx2wu2tx0trdv:fuggvkf5whtb0do5@q0h7yf5pynynaq54.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/py6ajs6fxh9t7ltc
+    ports:
+      - "80:80"
