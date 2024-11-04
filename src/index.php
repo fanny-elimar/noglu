@@ -13,7 +13,7 @@ $recipes=getRecipes($pdo);
             <?php } ?>
             </div>
 
-      <h1 class="text-primary text-center">Mes délicieuses recettes sans gluten</h1>
+      <h1 class="text-primary text-center">Mes délicieuses recettes sans gluten !</h1>
       <div class="container  ">
         <div class="row gap-3 justify-content-center">
         <?php foreach ($recipes as $recipe) {?>
