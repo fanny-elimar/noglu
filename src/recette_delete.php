@@ -1,14 +1,16 @@
 <?php
 require 'recipes.php';
 require_once 'header.php';
-
-
+require_once "session.php";
 
 $recipe = false;
 $errors = [];
 $messages = [];
 
-if (isset($_GET['id'])) {
+if (empty($_SESSION["user"])) {
+    $errors[] = "Vous n'avez pas le droit de supprimer une recette";;
+  } else {
+    if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $recipe = getRecipeById($pdo, $id);
     if ($recipe) {
@@ -20,7 +22,11 @@ if (isset($_GET['id'])) {
     } else {
         $errors[] = "La recette n'existe pas";
     }
+  }
 }
+
+
+
 ?>
 <div class="px-4 py-5 my-5 text-left">
   <h1 class="display-5 fw-bold text-body-emphasis">Suppression de recette</h1>

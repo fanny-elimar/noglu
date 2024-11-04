@@ -1,6 +1,11 @@
 <?php
 require_once  "recipes.php";
 require_once "header.php";
+require_once "session.php";
+
+if (empty($_SESSION["user"])) {
+    header("location: index.php");
+  }
 
 if (isset($_POST['saveRecipe'])) {
 $res = saveRecipe($pdo, $_POST['title'], $_POST["description"], $_POST["recette"]);
@@ -20,6 +25,13 @@ $res = saveRecipe($pdo, $_POST['title'], $_POST["description"], $_POST["recette"
     }
 }
 ?>
+<div>
+        <?php if (empty($_SESSION["user"])) {?>
+        <a href="login.php" class="btn btn-info m-3">Se connecter</a>
+          <?php } else { ?>
+            <a href="logout.php" class="btn btn-info m-3">Se déconnecter</a>
+            <?php } ?>
+            </div>
 <div class="px-4 mb-5 mt-3 text-left">
   <h1 class="display-5 fw-bold text-body-emphasis">Ajouter une recette</h1>
   <?php foreach ($errors as $error) { ?>

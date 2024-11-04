@@ -6,6 +6,6 @@ services:
     volumes:
       - .:/var/www/html
     environment:
-      DATABASE_URL: mysql://myxgwrd6h4msa70v:agfvorpz68z6gmy5@klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/tvk9yju0k1g59m0n
+      DATABASE_URL: JAWSDB_MARIA_URL
     ports:
       - ${PORT:80}

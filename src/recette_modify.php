@@ -1,6 +1,7 @@
 <?php
 require_once  "recipes.php";
 require_once "header.php";
+require_once "session.php";
 
 $error = false;
 if (isset($_GET['id'])) {
@@ -12,6 +13,10 @@ if (isset($_GET['id'])) {
     } 
 } else {
     $error = true;
+}
+
+if (empty($_SESSION["user"])) {
+  header("location: index.php");
 }
 
 if (!$errors) {
@@ -40,8 +45,10 @@ $res = saveRecipe($pdo, $_POST['title'], $_POST["description"], $_POST["recette"
 }
 }
 ?>
+
+       
 <div class="px-4 mb-5 mt-3 text-left">
-  <h1 class="display-5 fw-bold text-body-emphasis">Ajouter une recette</h1>
+  <h1 class="display-5 fw-bold text-body-emphasis">Modifier une recette</h1>
   <?php foreach ($errors as $error) { ?>
     <div class="alert alert-danger" role="alert">
         <?= $error; ?>

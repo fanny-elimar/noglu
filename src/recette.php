@@ -1,6 +1,7 @@
 <?php
 require_once  "recipes.php";
 require_once "header.php";
+require_once "session.php";
 
 $error = false;
 if (isset($_GET['id'])) {
@@ -15,8 +16,14 @@ if (isset($_GET['id'])) {
     $error = true;
 }
 ?>
-
-
+<div>
+        <?php if (empty($_SESSION["user"])) {?>
+        <a href="login.php" class="btn btn-info m-3">Se connecter</a>
+          <?php } else { ?>
+            <a href="logout.php" class="btn btn-info m-3">Se déconnecter</a>
+            <?php } ?>
+            </div>
+<div class="container  ">
 <?php if (!$error) { ?>
     <div class="row ">
         <div class="col-12">
@@ -25,12 +32,16 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 <?php } ?>
-<div class="mb-3">
+<?php if (!empty($_SESSION["user"])) {?>
+    <div class="mb-3">
     <a href="recette_modify.php?id=<?=$recipe['id'];?>" class="btn btn-info ">Modifier la recette </a>
   </div>
   <div class="mb-3">
     <a href='recette_delete.php?id=<?php echo $recipe['id']?>' class="btn btn-info" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')">Supprimer</a>
   </div>
+<?php } ?>
+
 <div class="mb-3 text-center">
     <a href="index.php" class="btn btn-info ">Page d'accueil</a>
+</div>
 </div>

@@ -1,9 +1,17 @@
 <?php
 require 'recipes.php';
 require_once "header.php";
-$recipes=getRecipes($pdo, 10);
-?>
+require_once "session.php";
+$recipes=getRecipes($pdo);
 
+?>
+<div>
+        <?php if (empty($_SESSION["user"])) {?>
+        <a href="login.php" class="btn btn-info m-3">Se connecter</a>
+          <?php } else { ?>
+            <a href="logout.php" class="btn btn-info m-3">Se déconnecter</a>
+            <?php } ?>
+            </div>
 
       <h1 class="text-primary text-center">Mes recettes sans gluten</h1>
       <div class="container  ">
@@ -25,8 +33,10 @@ $recipes=getRecipes($pdo, 10);
 
        <?php } ?>
 </div>
+<?php if (!empty($_SESSION["user"])) {?>
 <div class="mb-3 text-center">
     <a href="recette_add.php" class="btn btn-info ">Ajouter une recette </a>
   </div>
+<?php }?>
     </body>
 </html>
